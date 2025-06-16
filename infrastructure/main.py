@@ -1,27 +1,7 @@
-import logging
-
 from fastapi import FastAPI, Path, Query
-from contextlib import asynccontextmanager
 from pydantic import BaseModel, Field
 
-from infrastructure.configuration.log_config import LOGGING_CONFIG
-
-# logging.config.dictConfig(LOGGING_CONFIG)
-# logger = logging.getLogger(__name__)
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    logging.config.dictConfig(LOGGING_CONFIG)
-    logger = logging.getLogger(__name__)
-    logger.info("🚀 App is starting...")
-
-    yield
-
-    # Shutdown
-    logger.warning("🛑 App is shutting down...")
-
+from infrastructure.lifespan_manager import lifespan
 
 app = FastAPI(
     lifespan=lifespan
@@ -33,10 +13,6 @@ class Item(BaseModel):
     price: float
     tags: list[str] = []
 
-@app.get('/')
-async def root():
-    print("Her user, you're doing great!")
-    return {"message": "Hello, world!"}
 
 @app.get("/items")
 async def get_items() -> list[Item]:
@@ -55,7 +31,7 @@ async def get_object(obj: str, rating: int | None= None):
 
 @app.get("/users/{user_id}/items/{item_id}")
 async def read_user_item(
-    user_id: int, item_id: str | None = None, q: str | None = None, short: bool = False
+        user_id: int, item_id: str | None = None, q: str | None = None, short: bool = False
 ):
     item: dict[str, str | int | None] = {"owner_id": user_id}
     if item_id:
