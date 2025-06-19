@@ -3,9 +3,13 @@ from pydantic import BaseModel, Field
 
 from infrastructure.lifespan_manager import lifespan
 
+from infrastructure.routes.api_router import router
+
 app = FastAPI(
     lifespan=lifespan
 )
+
+app.include_router(router)
 
 class Item(BaseModel):
     name: str = Field(str, min_length=3, max_length=20)
