@@ -9,6 +9,10 @@ readme = "README.md"
 python = "^3.10"
 fastapi = {extras = ["standard"], version = "^0.115.12"}
 uvicorn = {extras = ["standard"], version = "^0.34.3"}
+asyncpg = "^0.30.0"
+sqlalchemy = "^2.0.41"
+tenacity = "^9.1.2"
+psycopg2-binary = "^2.9.10"
 
 
 [build-system]
