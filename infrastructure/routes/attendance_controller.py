@@ -1,31 +1,3 @@
-# import fastapi
-# from fastapi.encoders import jsonable_encoder
-# from fastapi.responses import JSONResponse
-# from pydantic import BaseModel
-#
-# router = fastapi.APIRouter(prefix="/private")
-#
-# class AttendanceBody(BaseModel):
-#     user: str | None = None
-#
-# @router.get("/attendance")
-# async def fetch_attendance():
-#     return 'Total attendance is 50'
-#
-# @router.post("/attendance")
-# async def submit_attendance(body: AttendanceBody):
-#     print(body)
-#     des = "Attendance record is saved successfully"
-#     result = {
-#         "description": des,
-#     }
-#
-#     if body.user is not None:
-#         result.update({'user': body.user})
-#
-#     return JSONResponse(content=jsonable_encoder(result))
-
-
 from fastapi import APIRouter
 from pydantic import BaseModel
 
